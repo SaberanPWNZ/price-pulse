@@ -1,0 +1,40 @@
+# ─────────────────────────────────────────────
+#  Adidas scraper configuration
+#  Modify this file to change what is scraped.
+# ─────────────────────────────────────────────
+
+name: "Adidas"
+shop_id: 2
+sex: 1          # 0 = women, 1 = men, 2 = unisex
+base_url: "https://www.adidas.de"
+
+# URLs to scrape.  Key = full URL, value = category label stored in the output.
+urls:
+  "https://www.adidas.de/manner-kleidung": "all"
+  "https://www.adidas.de/manner-kleidung-t_shirts": "t-shirts"
+  "https://www.adidas.de/manner-kleidung-trainingsanzuge": "tracksuits"
+  "https://www.adidas.de/manner-kleidung-hosen": "trousers"
+  "https://www.adidas.de/manner-kleidung-shorts": "shorts"
+  "https://www.adidas.de/manner-kleidung-jacken": "jackets"
+  "https://www.adidas.de/manner-kleidung-trainingsjacken": "training-jackets"
+  "https://www.adidas.de/manner-kleidung-hoodies": "hoodies"
+  "https://www.adidas.de/manner-kleidung-poloshirts": "polo-shirts"
+
+# CSS selectors — update these if the site markup changes.
+selectors:
+  product_grid: "main[data-testid='product-grid'] article[data-testid='plp-product-card']"
+  title:        "p[data-testid='product-card-title']"
+  price:        "div[data-testid='main-price'] span:last-child"
+  link:         "a[data-testid='product-card-description-link']"
+  image:        "img[data-testid='product-card-primary-image']"
+
+# WebDriver settings
+driver:
+  headless:                true
+  window_size:             "1920,1080"
+  disable_automation_flag: true
+  no_sandbox:              true
+  disable_dev_shm:         true
+  binary_location:         ""   # e.g. "/usr/bin/chromium" — empty = system default
+  initial_delay:           7    # seconds to wait after page load
+  scroll_delay:            3    # seconds between scroll steps
