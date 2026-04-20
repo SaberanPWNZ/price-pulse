@@ -1,0 +1,36 @@
+# ─────────────────────────────────────────────
+#  Zalando scraper configuration
+#  Modify this file to change what is scraped.
+# ─────────────────────────────────────────────
+
+name: "Zalando"
+shop_id: 3
+sex: 1          # 0 = women, 1 = men, 2 = unisex
+base_url: "https://en.zalando.de"
+
+# URLs to scrape.  Key = full URL, value = category label stored in the output.
+urls:
+  "https://en.zalando.de/mens-clothing/": "all"
+  "https://en.zalando.de/mens-clothing-t-shirts/": "t-shirts"
+  "https://en.zalando.de/mens-clothing-hoodies-sweatshirts/": "hoodies"
+  "https://en.zalando.de/mens-clothing-jeans/": "jeans"
+
+# CSS selectors — update these if the site markup changes.
+selectors:
+  product_list: "ul.AnNemq._0xLoFW._7ckuOK.mROyo1"
+  product_item: "li.QjLAB7._75qWlu.iOzucJ"
+  title:        "h3"
+  price:        "span.price"
+  link:         "a[href]"
+  image:        "img"
+
+# WebDriver settings
+driver:
+  headless:                true
+  window_size:             "1920,1080"
+  disable_automation_flag: true
+  no_sandbox:              true
+  disable_dev_shm:         true
+  binary_location:         ""
+  initial_delay:           5
+  scroll_delay:            2

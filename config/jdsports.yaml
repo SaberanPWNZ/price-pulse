@@ -1,0 +1,42 @@
+# ──────────────────────────────────────────────
+#  JD Sports scraper configuration
+#  Modify this file to change what is scraped.
+# ──────────────────────────────────────────────
+
+name: "JD Sports"
+shop_id: 10
+sex: 0          # 0 = women, 1 = men, 2 = unisex
+base_url: "https://www.jdsports.de"
+
+# Maximum number of products to collect per URL (prevents very long runs)
+max_products_per_category: 100
+
+# URLs to scrape.  Key = full URL, value = category label stored in the output.
+urls:
+  "https://www.jdsports.de/frauen/frauenkleidung/": "women-clothing"
+  "https://www.jdsports.de/frauen/frauenschuhe/": "women-shoes"
+
+# CSS selectors — update these if the site markup changes.
+selectors:
+  product_item:    "li.productListItem"
+  title:           "span.itemTitle a"
+  price:           "span.pri"
+  image:           "img.thumbnail"
+  load_more_btn:   "span.btn.rppLnk.showMore"
+  next_page_btn:   "a.btn.pageNav[rel='next']"
+  size_btn:        "div#productSizeStock button[data-e2e='pdp-productDetails-size']"
+
+# WebDriver settings
+driver:
+  headless:                true
+  window_size:             "1920,1080"
+  disable_automation_flag: true
+  no_sandbox:              true
+  disable_dev_shm:         true
+  binary_location:         ""
+  initial_delay:           2    # seconds to wait after opening category page
+  page_delay:              2    # seconds to wait after navigating to next page
+  size_wait:               15   # max seconds to wait for size buttons to appear
+  size_retries:            3    # how many times to retry fetching sizes
+  page_load_timeout:       40   # max seconds to wait for a product page to load
+  load_more_delay:         1.5  # seconds to wait after clicking the "load more" button

@@ -1,0 +1,38 @@
+# ─────────────────────────────────────────────
+#  H&M scraper configuration
+#  Modify this file to change what is scraped.
+# ─────────────────────────────────────────────
+
+name: "H&M"
+shop_id: 1
+sex: 0          # 0 = women, 1 = men, 2 = unisex
+base_url: "https://www2.hm.com"
+
+# URLs to scrape.  Key = full URL, value = category label stored in the output.
+urls:
+  "https://www2.hm.com/de_de/damen/neuheiten/kleidung.html": "new-arrivals"
+  "https://www2.hm.com/de_de/damen/kleidung/kleider.html": "dresses"
+  "https://www2.hm.com/de_de/damen/kleidung/jacken-maentel.html": "jackets"
+
+# Selectors
+selectors:
+  # href fragment used to identify product links on listing pages
+  product_link_pattern: "/de_de/productpage."
+  title:  "h1"
+  price:  "span.price"
+  # Selector for colour swatches — used in HTML fallback only
+  color:  "section[data-testid='color-selector'] a[title], section[data-testid='color-selector'] img[alt]"
+  # String that appears in aria-label of size buttons — used in HTML fallback
+  size:   "Größe"
+
+# WebDriver settings
+driver:
+  headless:                true
+  window_size:             "1920,1080"
+  disable_automation_flag: true
+  no_sandbox:              true
+  disable_dev_shm:         true
+  binary_location:         ""
+  initial_delay:           5
+  scroll_delay:            3
+  page_delay:              3    # wait after opening each product page

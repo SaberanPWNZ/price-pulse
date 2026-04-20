@@ -1,0 +1,10 @@
+venv/
+.venv/
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.env
+output/
+debug_page.html
