@@ -72,6 +72,10 @@ def discover_configs(config_dir: str, requested: list[str] | None) -> list[tuple
 
     If *requested* is None every YAML file found in *config_dir* is loaded.
     Otherwise only the listed shop names are loaded.
+
+    Returns an empty list when *config_dir* does not exist, contains no YAML
+    files, or none of the discovered shop keys are present in the scraper
+    registry.
     """
     configs = []
     for fname in sorted(os.listdir(config_dir)):

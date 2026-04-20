@@ -38,3 +38,5 @@ driver:
   page_delay:              2    # seconds to wait after navigating to next page
   size_wait:               15   # max seconds to wait for size buttons to appear
   size_retries:            3    # how many times to retry fetching sizes
+  page_load_timeout:       40   # max seconds to wait for a product page to load
+  load_more_delay:         1.5  # seconds to wait after clicking the "load more" button

@@ -69,12 +69,14 @@ class JDSportsScraper(BaseScraper):
     def _load_full_page(self, driver) -> None:
         """Click the 'load more' button until it disappears."""
         sel = self._cfg["selectors"]
+        driver_cfg = self._cfg.get("driver", {})
+        load_more_delay = driver_cfg.get("load_more_delay", 1.5)
         while True:
             try:
                 btn = driver.find_element(By.CSS_SELECTOR, sel.get("load_more_btn", "span.btn.rppLnk.showMore"))
                 if btn.is_displayed():
                     driver.execute_script("arguments[0].click();", btn)
-                    time.sleep(1.5)
+                    time.sleep(load_more_delay)
                 else:
                     break
             except Exception:
@@ -123,9 +125,10 @@ class JDSportsScraper(BaseScraper):
         size_wait = driver_cfg.get("size_wait", 15)
         retries = driver_cfg.get("size_retries", 3)
 
+        page_load_timeout = driver_cfg.get("page_load_timeout", 40)
         for _ in range(retries):
             try:
-                driver.set_page_load_timeout(40)
+                driver.set_page_load_timeout(page_load_timeout)
                 driver.get(product.ref_item)
                 WebDriverWait(driver, size_wait).until(
                     EC.presence_of_element_located(

@@ -55,6 +55,18 @@ class HMScraper(BaseScraper):
                 links.append(full)
         return links
 
+    @staticmethod
+    def _extract_color_codes(variants: list) -> list[str]:
+        """Return unique non-empty hex colour codes from a list of product variants."""
+        seen: set[str] = set()
+        result: list[str] = []
+        for v in variants:
+            hex_color = v.get("rgbColors", [{}])[0].get("hex", "")
+            if hex_color and hex_color not in seen:
+                seen.add(hex_color)
+                result.append(hex_color)
+        return result
+
     def _parse_product_page(self, url: str, category: str) -> Product | None:
         sel = self._cfg["selectors"]
         driver_cfg = self._cfg.get("driver", {})
@@ -83,14 +95,7 @@ class HMScraper(BaseScraper):
                     or product.get("redPrice", {}).get("formattedValue")
                 )
                 data["category"] = product.get("categoryName") or product.get("mainCategoryCode") or category
-                data["color"] = list(
-                    {
-                        v.get("rgbColors", [{}])[0].get("hex", "")
-                        for v in product.get("variantsList", [])
-                        if v.get("rgbColors")
-                    }
-                    - {""}
-                )
+                data["color"] = self._extract_color_codes(product.get("variantsList", []))
                 data["size"] = [
                     s.get("name")
                     for s in product.get("sizes", [])
